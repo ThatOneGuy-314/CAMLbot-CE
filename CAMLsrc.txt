@@ -1,0 +1,142 @@
+:"WIP Chatbot
+:"B33B333B3B3B3BBB33BB3B3B333B3BBB33BB333B3B3B3BBBB33B3B3B3B3B333BBBBBBBBBBBBBBBBBBBBBB666BBBBBBBBBBBB66666BB6666BBBB6666666B6666BBB66666666666BBBBB66666666666BBBBB666BBB666BBBBBBB66BBBBB66BBBBBBB66BBBBB66BBBBBBB66BBBBB66BBBBBBB66BBBBB66BBBBBBB66BBBBB66BBBBB
+ClrHome
+Output(1,1,"--------------------------
+Disp "***********CAML***********
+UnArchive |LCMDS:UnArchive |LOTPT:UnArchive |LN
+" ->Str2
+7->Y:Disp "Hello.
+For(I,1,5
+	Disp "
+End
+Lbl A
+Input ">",Str0
+" "+Str0->Str1
+If inString(Str1,"BYE"):Then
+	Disp "Arch\iving crap and\ such..\.************************
+Archive |LCMDS:Archive |LOTPT:Archive |LN:Stop:Else
+	If length(Str1)>=6
+	Then
+		sub(Str1,1,6->Str0
+	End
+	If Str0=" CALC ":Then
+		sub(Str1,7,length(Str1)-6->Str1
+		Disp expr(Str1
+		Goto A
+	Else
+2->B:For(I,1,|LN(1)):" ->Str0:If I!=1:Then:1+B+|LCMDS(B->B:End:If |LCMDS(B)!=0:Then:For(J,1,|LCMDS(B)):|LCMDS(B+J->A:Str0+sub("ABCDEFGHIJKLMNOPQRSTUVWXYZ .,?!'0123456789()",A,1->Str0:End
+				If inString(Str1,Str0) or inString(Str0,Str1):Then
+					" ->Str0
+					1->B
+					For(K,1,I
+						1+B+|LOTPT(B->B
+					End
+					For(J,1,|LOTPT(B
+						|LOTPT(B+J->A
+						Str0+sub("ABCDEFGHIJKLMNOPQRSTUVWXYZ .,?!'0123456789()",A,1->Str0
+					End
+					If length(Str0)>25:Then
+						For(L,0,~1+int(length(Str0)/25
+							Disp sub(Str0,25L+1,25
+							
+						End
+						Disp sub(Str0,25L,length(Str0)+1-25L
+						
+					Else
+						Disp Str0
+					End
+					Goto A
+				End
+			End
+		End
+		Str0->Str2
+	End
+	If Str1=" NEW":Then
+		Lbl B
+		Disp "New command:
+		Input ">",Str1
+		Disp "Add "+Str1+" to","database? (1:Y, 0:N)
+		Input ">",C
+	If C!=1:Then:Goto B:End
+		Disp "High or\ low priority?","(1:High, 0:Low)
+		Input ">",D
+		{|LN(1)+1->|LN
+		{length(Str1->L1
+		For(I,1,length(Str1
+			sub(Str1,I,1->Str3
+			augment(L1,{inString("ABCDEFGHIJKLMNOPQRSTUVWXYZ .,?!'0123456789()",Str3->L1
+		End
+If D:Then:augment({0},L1->L1:augment(L1,|LCMDS->CMDS:Else:augment(|LCMDS,L1->CMDS:End
+		Disp Str1+" was","added to CAMLbot's","database!
+		Lbl C
+		Disp "Response:
+		Input ">",Str1
+		Disp "Add "+Str1+" to","database? (1:Y, 0:N)
+		Input ">",C
+	If C!=1:Then:Goto C:End
+		{length(Str1->L1
+		For(I,1,length(Str1
+			sub(Str1,I,1->Str3
+			augment(L1,{inString("ABCDEFGHIJKLMNOPQRSTUVWXYZ .,?!'0123456789()",Str3->L1
+		End
+If D:Then:augment({0},L1->L1:augment(L1,|LOTPT->|LOTPT:Else:augment(|LOTPT,L1->|LOTPT:End
+		Disp Str1+" was","added to CAMLbot's","database!
+		Goto A
+	Else
+		If inString(Str1,"CLEAR"):Then
+			Disp "Clear all entries?","(1:Y, 0:N)
+			Input ">",C
+			If C:Then
+				{0->|LCMDS:{0->|LOTPT:{0->|LN
+				Disp "All entries cleared!
+				Goto A
+			End
+		Else
+			If inString(Str1,"GARBAGE"):Then
+				Disp "Collect garbage?","(1:Y, 0:N)
+				Input ">",C
+				If C:Then
+					{0->L1
+					For(I,2,dim(|LCMDS
+						If |LCMDS(I)!=0:Then
+							augment(L1,{|LCMDS(I->L1
+						End
+					End
+					L1->|LCMDS
+					{0->L1
+					For(I,2,dim(|LOTPT
+						If |LOTPT(I)!=0:Then
+							augment(L1,{|LOTPT(I->L1
+						End
+					End
+					L1->|LOTPT
+					Disp "Garbage collected!
+					Goto A
+				End
+			Else
+				If inString(Str1,"BACKUP"):Then
+					Disp "Back up knowledge?","(1:Y, 0:N)
+					Input ">",C
+					If C:Then
+						UnArchive |LCBACK:UnArchive |LOBACK:UnArchive |LBACK
+						|LCMDS->|LCBACK:|LOTPT->|LOBACK:|LN->|LBACK:Archive |LCBACK:Archive |LOBACK:Archive |LBACK
+						Disp "Knowledge backed up!
+						Goto A
+					End
+				Else
+					If inString(Str1,"RESTORE"):Then
+						Disp "Restore knowledge from","backup? (1:Y, 0:N)
+						Input ">",C
+						If C:Then
+							UnArchive |LCBACK:UnArchive |LOBACK:UnArchive |LBACK
+							|LCBACK->|LCMDS:|LOBACK->|LOTPT:|LBACK->|LN:Archive |LCBACK:Archive |LOBACK:Archive |LBACK
+							Disp "Knowledge restored!
+							Goto A
+						End
+					Else
+						Disp "Unknown command. Add to","database? (1:Y, 0:N)
+						Input ">",C
+						If C:Then
+							Goto B
+						Else
+							Goto A
